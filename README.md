@@ -1,8 +1,37 @@
+
 # mssql-try1 Project
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+
+
+## Quarkus Extentions
+1. resteasy-reactive
+2. agroal
+3. quarkus-hibernate-orm-panache
+4. quarkus-resteasy-jsonb
+5. quarkus-jdbc-mssql
+```
+quarkus create app org.acme:mssql-try1     --extension=resteasy-reactive 
+```
+## application.properties
+```
+quarkus.datasource.db-kind=mssql
+quarkus.datasource.username=sa
+quarkus.datasource.password=<password>
+quarkus.datasource.jdbc.driver=com.microsoft.sqlserver.jdbc.SQLServerDriver
+quarkus.datasource.jdbc.url=jdbc:sqlserver://localhost:1433;databaseName=TestDB;integratedSecurity=false;encrypt=false;trustServerCertificate=true;
+quarkus.datasource.jdbc.max-size=16
+# quarkus.hibernate-orm.scripts.generation=drop-and-create
+quarkus.hibernate-orm.scripts.generation.create-target=import.sql
+
+quarkus.hibernate-orm.log.format-sql=true
+quarkus.hibernate-orm.log.sql=true
+quarkus.hibernate-orm.sql-load-script=import.sql
+# quarkus.datasource.users.new-connection-sql=CREATE TABLE IF NOT EXISTS Person (id int8 not null, first_name varchar(255),last_name varchar(255),salutation varchar(255), PRIMARY KEY ( id ))
+```
+
 
 ## Running the application in dev mode
 
