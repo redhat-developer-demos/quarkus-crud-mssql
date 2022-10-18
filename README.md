@@ -532,15 +532,25 @@ Quarkus provide us with multiple Dockerfiles with their location of it:
   
 
 ├── mvnw
+
 ├── mvnw.cmd
+
 ├── pom.xml
+
 ├── README.md
+
 ├── src
+
 │ ├── main
+
 │ │ ├── docker
+
 │ │ │ ├── Dockerfile.jvm
+
 │ │ │ ├── Dockerfile.legacy-jar
+
 │ │ │ ├── Dockerfile.native
+
 │ │ │ └── Dockerfile.native-micro
 
   
