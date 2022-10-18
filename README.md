@@ -596,7 +596,7 @@ As we tested all the API above we have to test it again after containerization l
   
   
 
-5.  ### Summary
+### 5. Summary
     
 
 Using Quarkus dramatically reduces the lines of code you have to write. As you have seen, creating a simple REST CRUD service is just a piece of cake. If you then want to move your app to Kubernetes, it’s just a matter of adding another extension to the build process.
