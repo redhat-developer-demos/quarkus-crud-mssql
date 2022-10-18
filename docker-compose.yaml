@@ -1,0 +1,48 @@
+version: "3.9"
+services:
+  web:
+    image: nageshrathod/sample:try
+    ports:
+      - "8000:5000"
+  redis:
+    image: "redis:alpine"
+
+
+
+# version: "2.3"
+
+# services:
+#   mssql-crud:
+#     image: quarkus/mssql-try1-jvm:latest
+#     mem_limit: 250m
+#     environment:
+#       - QUARKUS_DATASOURCE.USERNAME=sa
+#       - QUARKUS_DATASOURCE.PASSWORD=123@Nagesh
+#       - QUARKUS_DATASOURCE_URL=jdbc:sqlserver://172.17.0.1:1433;databaseName=TestDB;integratedSecurity=false;encrypt=false;trustServerCertificate=true;
+#     ports:
+#       - "8080:8080"  # the HTTP endpoint
+#     # depends_on:
+#     #   quarkus-db:
+#     #     condition: service_healthy
+#     networks:
+#       - quarkus
+
+  # quarkus-db:
+  #   image: "postgres:10.5"
+  #   mem_limit: 128m
+  #   environment:
+  #     - POSTGRES_USER=quarkus
+  #     - POSTGRES_PASSWORD=quarkus
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U quarkus"]
+  #     interval: 5s
+  #     timeout: 5s
+  #     retries: 6
+  #   ports:
+  #     - "5432:5432"
+  #   networks:
+  #     - quarkus
+
+networks:
+  quarkus:
+    driver: bridge
