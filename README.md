@@ -148,7 +148,7 @@ SQL Server is now running on your RHEL machine and is ready to use!
 
   
 
-1.2. Installation of Microsoft SQL CLI tool
+### 1.2. Installation of Microsoft SQL CLI tool
 
   
 
