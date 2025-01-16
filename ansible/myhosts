@@ -1,0 +1,2 @@
+[sqlgroup]
+localhost ansible_connection=local

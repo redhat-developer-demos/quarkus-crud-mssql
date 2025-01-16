@@ -1,0 +1,56 @@
+---
+- name: Install SQL Server command-line tool (sqlcmd)
+  hosts: all
+  become: yes
+  tasks:
+    - name: Download and add the Microsoft SQL Server repository
+      ansible.builtin.shell:
+        cmd: curl https://packages.microsoft.com/config/rhel/9/prod.repo | tee /etc/yum.repos.d/mssql-release.repo
+      args:
+        creates: /etc/yum.repos.d/mssql-release.repo
+
+    - name: Remove old versions of mssql-tools and unixODBC
+      ansible.builtin.yum:
+        name:
+          - mssql-tools
+          - unixODBC-utf16
+          - unixODBC-utf16-devel
+        state: absent
+
+    - name: Install mssql-tools18 and unixODBC-devel with license acceptance
+      ansible.builtin.shell:
+        cmd: ACCEPT_EULA=Y yum install -y mssql-tools18 unixODBC-devel
+
+    - name: Add mssql-tools18 to PATH in ~/.bash_profile
+      ansible.builtin.lineinfile:
+        path: ~/.bash_profile
+        line: 'export PATH="$PATH:/opt/mssql-tools18/bin"'
+        state: present
+
+    - name: Add mssql-tools18 to PATH in ~/.bashrc
+      ansible.builtin.lineinfile:
+        path: ~/.bashrc
+        line: 'export PATH="$PATH:/opt/mssql-tools18/bin"'
+        state: present
+
+    - name: Source ~/.bash_profile to update PATH
+      ansible.builtin.shell:
+        cmd: source ~/.bash_profile
+      args:
+        executable: /bin/bash
+
+    - name: Source ~/.bashrc to update PATH
+      ansible.builtin.shell:
+        cmd: source ~/.bashrc
+      args:
+        executable: /bin/bash
+
+    - name: Verify sqlcmd installation
+      ansible.builtin.shell:
+        cmd: sqlcmd -?
+      register: sqlcmd_check
+      failed_when: "'command not found' in sqlcmd_check.stderr"
+
+    - name: Display sqlcmd verification output
+      ansible.builtin.debug:
+        msg: "{{ sqlcmd_check.stdout }}"
