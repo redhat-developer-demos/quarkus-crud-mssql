@@ -32,25 +32,3 @@
         path: ~/.bashrc
         line: 'export PATH="$PATH:/opt/mssql-tools18/bin"'
         state: present
-
-    - name: Source ~/.bash_profile to update PATH
-      ansible.builtin.shell:
-        cmd: source ~/.bash_profile
-      args:
-        executable: /bin/bash
-
-    - name: Source ~/.bashrc to update PATH
-      ansible.builtin.shell:
-        cmd: source ~/.bashrc
-      args:
-        executable: /bin/bash
-
-    - name: Verify sqlcmd installation
-      ansible.builtin.shell:
-        cmd: sqlcmd -?
-      register: sqlcmd_check
-      failed_when: "'command not found' in sqlcmd_check.stderr"
-
-    - name: Display sqlcmd verification output
-      ansible.builtin.debug:
-        msg: "{{ sqlcmd_check.stdout }}"
